@@ -13,6 +13,7 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
 
     public static void menu(){
+        System.out.println();
         System.out.println("1. View All Text");
         System.out.println("2. Add Text");
         System.out.println("3. Update Text");
@@ -21,7 +22,14 @@ public class Main {
         System.out.println();
 
         System.out.print("Choose an option:");
-        choice = scanner.nextInt();
+
+        try{
+            choice =  scanner.nextInt();
+        } catch(Exception e){
+            System.out.println("Invalid Input");
+            System.out.println("Please enter a valid option");
+        }
+
         scanner.nextLine();
 
         switch (choice){
