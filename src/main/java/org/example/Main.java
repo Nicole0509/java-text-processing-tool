@@ -74,9 +74,18 @@ public class Main {
                     System.out.println("There's Nothing to Replace!");
                 } else {
                     System.out.println("Replace Text");
-                    System.out.print("Enter Text to Replace: ");
-                    String replaceText = scanner.nextLine().trim();
-                    System.out.println(replaceText);
+                    System.out.print("Enter the text you want to replace: ");
+                    String oldText = scanner.nextLine().trim();
+                    System.out.println(oldText);
+
+                    if(textProcessingSet.contains(oldText)){
+                        System.out.print("Enter the new text: ");
+                        String newText = scanner.nextLine().trim();
+                        textProcessingSet.remove(oldText);
+                        textProcessingSet.add(newText);
+                    } else {
+                        System.out.println("The text you entered does not exist in the set.");
+                    }
                 }
                 break;
             case 4:
