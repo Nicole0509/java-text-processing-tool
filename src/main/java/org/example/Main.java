@@ -43,9 +43,21 @@ public class Main {
 
                 String text = scanner.nextLine().trim();
                 System.out.println(text);
-                textProcessingSet.add(text);
-                System.out.println("Text added successfully!");
 
+                if(text.isEmpty()) {
+                    do{
+                        System.out.println("\nEmpty text phrases are not allowed!");
+                        System.out.print("Please enter a valid text: ");
+                        text = scanner.nextLine().trim();
+                    }while(text.isEmpty());
+
+                    textProcessingSet.add(text);
+
+                } else{
+                    textProcessingSet.add(text);
+                }
+
+                System.out.println("Text added successfully!");
                 System.out.println("You have " + textProcessingSet.size() + " texts available in the set!");
                 break;
             case 3:
