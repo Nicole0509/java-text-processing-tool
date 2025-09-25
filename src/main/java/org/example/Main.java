@@ -6,14 +6,23 @@ import java.util.Set;
 
 public class Main {
 
-    public static Set<String> textProcessing = new HashSet<String>();
+    static int choice;
+
+    public static Set<String> textProcessingSet = new HashSet<String>();
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static void menu(int choice){
+    public static void menu(){
         System.out.println("1. View All Text");
         System.out.println("2. Add Text");
+        System.out.println("3. Update Text");
+        System.out.println("4. Delete Text");
+        System.out.println("5. Exit");
         System.out.println();
+
+        System.out.print("Choose an option:");
+        choice = scanner.nextInt();
+        scanner.nextLine();
 
         switch (choice){
             case 1:
@@ -21,7 +30,16 @@ public class Main {
                 break;
             case 2:
                 System.out.println("Add Text");
-                System.out.print("Enter Text to Add");
+                break;
+            case 3:
+                System.out.println("3. Update Text");
+                break;
+            case 4:
+                System.out.println("4. Delete Text");
+                break;
+            case 5:
+                System.out.println("Exit");
+                System.out.println("The program says bye!");
                 break;
             default:
                 System.out.println("Invalid choice");
@@ -32,6 +50,9 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("TEXT PROCESSING WITH JAVA!");
-        menu(2);
+
+        do{
+            menu();
+        } while (choice != 5);
     }
 }
