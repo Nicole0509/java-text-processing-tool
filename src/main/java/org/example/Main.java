@@ -21,7 +21,7 @@ public class Main {
         System.out.println("5. Exit");
         System.out.println();
 
-        System.out.print("Choose an option:");
+        System.out.print("Choose an option: ");
 
         try{
             choice =  scanner.nextInt();
@@ -33,11 +33,16 @@ public class Main {
 
         switch (choice){
             case 1:
-                System.out.println("1. View All Text");
+                if(textProcessingSet.isEmpty()){
+                    System.out.println("Nothing to Display");
+                } else {
+                    System.out.println("A list of text in the set");
 
-                textProcessingSet.forEach((text) -> {
-                    System.out.println(text);
-                });
+                    textProcessingSet.forEach((text) -> {
+                        System.out.println(text);
+                    });
+                }
+
                 break;
             case 2:
                 System.out.println("Add Text");
