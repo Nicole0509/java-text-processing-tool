@@ -34,6 +34,10 @@ public class Main {
         switch (choice){
             case 1:
                 System.out.println("1. View All Text");
+
+                textProcessingSet.forEach((text) -> {
+                    System.out.println(text);
+                });
                 break;
             case 2:
                 System.out.println("Add Text");
