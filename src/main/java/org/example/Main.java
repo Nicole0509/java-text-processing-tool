@@ -26,8 +26,7 @@ public class Main {
         try{
             choice =  scanner.nextInt();
         } catch(Exception e){
-            System.out.println("Invalid Input");
-            System.out.println("Please enter a valid option");
+            choice = -1;
         }
 
         scanner.nextLine();
