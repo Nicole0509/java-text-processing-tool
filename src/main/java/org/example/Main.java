@@ -3,6 +3,8 @@ package org.example;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -74,18 +76,25 @@ public class Main {
                     System.out.println("There's Nothing to Replace!");
                 } else {
                     System.out.println("Replace Text");
-                    System.out.print("Enter the text you want to replace: ");
-                    String oldText = scanner.nextLine().trim();
-                    System.out.println(oldText);
+                    System.out.print("Enter text to replace: ");
+                    String oldText = scanner.nextLine();
 
-                    if(textProcessingSet.contains(oldText)){
-                        System.out.print("Enter the new text: ");
-                        String newText = scanner.nextLine().trim();
-                        textProcessingSet.remove(oldText);
-                        textProcessingSet.add(newText);
-                    } else {
-                        System.out.println("The text you entered does not exist in the set.");
+                    System.out.print("Enter new text: ");
+                    String newText = scanner.nextLine();
+
+                    Pattern pattern = Pattern.compile("\\b" + oldText + "\\b");
+
+                    for(String phrase : textProcessingSet){
+                        Matcher matcher = pattern.matcher(phrase);
+                        String updatedPhrase = matcher.replaceAll(newText);
+
+                        if (!phrase.equals(updatedPhrase)) {
+                            textProcessingSet.remove(phrase);
+                            textProcessingSet.add(updatedPhrase);
+                        }
                     }
+
+                    System.out.println("Text replaced successfully!");
                 }
                 break;
             case 4:
