@@ -77,24 +77,28 @@ public class Main {
                 } else {
                     System.out.println("Replace Text");
                     System.out.print("Enter text to replace: ");
-                    String oldText = scanner.nextLine();
+                    String oldText = scanner.nextLine().trim();
 
-                    System.out.print("Enter new text: ");
-                    String newText = scanner.nextLine();
+                    if(textProcessingSet.contains(oldText)) {
+                        System.out.print("Enter new text: ");
+                        String newText = scanner.nextLine().trim();
 
-                    Pattern pattern = Pattern.compile("\\b" + oldText + "\\b");
+                        Pattern pattern = Pattern.compile("\\b" + oldText + "\\b");
 
-                    for(String phrase : textProcessingSet){
-                        Matcher matcher = pattern.matcher(phrase);
-                        String updatedPhrase = matcher.replaceAll(newText);
+                        for(String phrase : textProcessingSet){
+                            Matcher matcher = pattern.matcher(phrase);
+                            String updatedPhrase = matcher.replaceAll(newText);
 
-                        if (!phrase.equals(updatedPhrase)) {
-                            textProcessingSet.remove(phrase);
-                            textProcessingSet.add(updatedPhrase);
+                            if (!phrase.equals(updatedPhrase)) {
+                                textProcessingSet.remove(phrase);
+                                textProcessingSet.add(updatedPhrase);
+                            }
                         }
-                    }
 
-                    System.out.println("Text replaced successfully!");
+                        System.out.println("Text replaced successfully!");
+                    } else {
+                        System.out.println(oldText + " is not in the set!");
+                    }
                 }
                 break;
             case 4:
