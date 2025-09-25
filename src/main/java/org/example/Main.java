@@ -21,6 +21,7 @@ public class Main {
         System.out.println("3. Replace Text");
         System.out.println("4. Delete Text");
         System.out.println("5. Exit");
+        System.out.println("6. Search Text");
         System.out.println();
 
         System.out.print("Choose an option: ");
@@ -107,6 +108,21 @@ public class Main {
             case 5:
                 System.out.println("Exit");
                 System.out.println("The program says bye!");
+                break;
+            case 6:
+                if(textProcessingSet.isEmpty()){
+                    System.out.println("The Set is Empty!");
+                } else {
+                    System.out.println("Search Text");
+                    System.out.print("Enter text to search: ");
+                    String search = scanner.nextLine().trim();
+
+                    Pattern pattern = Pattern.compile(search);
+
+                    textProcessingSet.stream()
+                            .filter(phrase -> pattern.matcher(phrase).find())
+                            .forEach(phrase -> System.out.println("Match found: " + phrase));
+                }
                 break;
             default:
                 System.out.println("Invalid choice");
