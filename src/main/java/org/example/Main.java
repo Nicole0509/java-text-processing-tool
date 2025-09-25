@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -86,15 +87,9 @@ public class Main {
 
                         Pattern pattern = Pattern.compile("\\b" + oldText + "\\b");
 
-                        for(String phrase : textProcessingSet){
-                            Matcher matcher = pattern.matcher(phrase);
-                            String updatedPhrase = matcher.replaceAll(newText);
-
-                            if (!phrase.equals(updatedPhrase)) {
-                                textProcessingSet.remove(phrase);
-                                textProcessingSet.add(updatedPhrase);
-                            }
-                        }
+                        textProcessingSet = textProcessingSet.stream()
+                                        .map(phrase -> pattern.matcher(phrase).replaceAll(newText))
+                                        .collect(Collectors.toSet());
 
                         System.out.println("Text replaced successfully!");
                     } else {
