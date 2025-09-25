@@ -16,7 +16,7 @@ public class Main {
         System.out.println();
         System.out.println("1. View All Text");
         System.out.println("2. Add Text");
-        System.out.println("3. Update Text");
+        System.out.println("3. Replace Text");
         System.out.println("4. Delete Text");
         System.out.println("5. Exit");
         System.out.println();
@@ -69,7 +69,15 @@ public class Main {
                 System.out.println("You have " + textProcessingSet.size() + " texts available in the set!");
                 break;
             case 3:
-                System.out.println("3. Update Text");
+
+                if(textProcessingSet.isEmpty()) {
+                    System.out.println("There's Nothing to Replace!");
+                } else {
+                    System.out.println("Replace Text");
+                    System.out.print("Enter Text to Replace: ");
+                    String replaceText = scanner.nextLine().trim();
+                    System.out.println(replaceText);
+                }
                 break;
             case 4:
                 System.out.println("4. Delete Text");
