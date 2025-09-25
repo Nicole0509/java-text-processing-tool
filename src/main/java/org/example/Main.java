@@ -81,20 +81,16 @@ public class Main {
                     System.out.print("Enter text to replace: ");
                     String oldText = scanner.nextLine().trim();
 
-                    if(textProcessingSet.contains(oldText)) {
-                        System.out.print("Enter new text: ");
-                        String newText = scanner.nextLine().trim();
+                    System.out.print("Enter new text: ");
+                    String newText = scanner.nextLine().trim();
 
-                        Pattern pattern = Pattern.compile("\\b" + oldText + "\\b");
+                    Pattern pattern = Pattern.compile("\\b" + oldText + "\\b");
 
-                        textProcessingSet = textProcessingSet.stream()
-                                        .map(phrase -> pattern.matcher(phrase).replaceAll(newText))
-                                        .collect(Collectors.toSet());
+                    textProcessingSet = textProcessingSet.stream()
+                            .map(phrase -> pattern.matcher(phrase).replaceAll(newText))
+                            .collect(Collectors.toSet());
 
-                        System.out.println("Text replaced successfully!");
-                    } else {
-                        System.out.println(oldText + " is not in the set!");
-                    }
+                    System.out.println("Text replaced successfully!");
                 }
                 break;
             case 4:
