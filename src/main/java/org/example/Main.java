@@ -38,6 +38,15 @@ public class Main {
                 break;
             case 2:
                 System.out.println("Add Text");
+
+                System.out.print("Enter Text to Add: ");
+
+                String text = scanner.nextLine().trim();
+                System.out.println(text);
+                textProcessingSet.add(text);
+                System.out.println("Text added successfully!");
+
+                System.out.println("You have " + textProcessingSet.size() + " texts available in the set!");
                 break;
             case 3:
                 System.out.println("3. Update Text");
