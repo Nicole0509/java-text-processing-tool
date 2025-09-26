@@ -36,9 +36,11 @@ public class TheRealMainClass extends Application {
 
     // Button declaration
     public Button submitButton = new Button("Submit");
-    public Button createButton = new Button("Add Text");
+    public Button addButton = new Button("Add Text");
     public Button updateButton = new Button("Update");
     public Button deleteButton = new Button("Delete");
+    public Button showMenuButton = new Button("Show Menu");
+
 
     // View declaration
     private TableView<String> tableView = new TableView<>();
@@ -46,6 +48,29 @@ public class TheRealMainClass extends Application {
 
     public static void main(String[] args) {
         Application.launch(TheRealMainClass.class, args);
+    }
+
+    public void displayMenu(){
+        guideLabel.setText("Choose an Option");
+
+        Label inputChoiceLabel = new Label("Input Choice");
+        inputChoice.setPromptText("Enter your choice here");
+
+        feedBack.setText("");
+
+        layout.getChildren().addAll(guideLabel,inputChoiceLabel,inputChoice,submitButton,feedBack);
+
+        submitButton.setOnAction(e -> {
+            try{
+                choice = Integer.parseInt(inputChoice.getText());
+                feedBack.setText("check");
+            } catch(Exception ex){
+                choice = -1;
+                feedBack.setText("Invalid choice");
+            }
+            inputChoice.clear();
+            switchChoice(choice);
+        });
     }
 
     public void switchChoice(int choice) {
@@ -63,22 +88,29 @@ public class TheRealMainClass extends Application {
                 feedBack.setText("");
 
                 layout.getChildren().clear();
-                layout.getChildren().addAll(guideLabel, enterTextLabel, enterText,createButton, feedBack);
+                layout.getChildren().addAll(guideLabel, enterTextLabel, enterText,addButton, feedBack);
 
-                createButton.setOnAction(e -> {
+                addButton.setOnAction(e -> {
                     layout.getChildren().clear();
-                    if (enterText.getText().isEmpty()) {
+                    if (enterText.getText().trim().isEmpty()) {
 
                         feedBack.setText("Empty text phrases are not allowed!");
-                        layout.getChildren().addAll(guideLabel, enterTextLabel, enterText,createButton, feedBack);
+                        layout.getChildren().addAll(guideLabel, enterTextLabel, enterText,addButton, feedBack);
+                        enterText.clear();
 
                     } else {
 
-                        textProcessingSet.add(enterText.getText());
+                        textProcessingSet.add(enterText.getText().trim());
                         guideLabel.setText("Text added successfully!");
-                        feedBack.setText("You have " + textProcessingSet.size() + " texts available in the set!");
-                        layout.getChildren().addAll(guideLabel,feedBack);
+                        feedBack.setText("You have " + textProcessingSet.size() + " phrases available in the set!");
+                        layout.getChildren().addAll(guideLabel,feedBack,showMenuButton);
+                        enterText.clear();
                     }
+
+                    showMenuButton.setOnAction(e1 -> {
+                        layout.getChildren().clear();
+                        displayMenu();
+                    });
 
                 });
 
@@ -104,27 +136,16 @@ public class TheRealMainClass extends Application {
 
         stage.setTitle("TEXT PROCESSING TOOL");
 
-        Label inputChoiceLabel = new Label("Input Choice");
-        inputChoice.setPromptText("Enter your choice here");
 
-        layout.getChildren().addAll(guideLabel,inputChoiceLabel,inputChoice,submitButton,feedBack);
 
         layout.setPadding(new Insets(10, 20, 10, 20));
+
+        displayMenu();
 
         final Scene scene = new Scene(layout, 400, 400);
         stage.setScene(scene);
         stage.show();
 
-        submitButton.setOnAction(e -> {
-            try{
-                choice = Integer.parseInt(inputChoice.getText());
-                feedBack.setText("check");
-            } catch(Exception ex){
-                choice = -1;
-                feedBack.setText("Invalid choice");
-            }
 
-            switchChoice(choice);
-        });
     }
 }
