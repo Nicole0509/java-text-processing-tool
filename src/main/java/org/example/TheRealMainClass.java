@@ -9,9 +9,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Pattern;
+
 public class TheRealMainClass extends Application {
 
     static int choice;
+
+    public static Set<String> textProcessingSet = new HashSet<String>();
 
     public static void main(String[] args) {
         Application.launch(TheRealMainClass.class, args);
@@ -34,12 +40,34 @@ public class TheRealMainClass extends Application {
         enterChoiceButton.setOnAction(e->{
             try{
                 choice = Integer.parseInt(inputChoice.getText());
-                feedBack.setText("You entered: " + choice);
             } catch(Exception ex){
                 choice = -1;
-                feedBack.setText("Invalid Input!");
             }
 
+            switch (choice){
+                case 1:
+                    feedBack.setText("View A list of available Text");
+
+                    break;
+                case 2:
+                    feedBack.setText("Add Text");
+                    break;
+                case 3:
+                    feedBack.setText("Replace Text");
+                    break;
+                case 4:
+                    feedBack.setText("Delete Text");
+                    break;
+                case 5:
+                    feedBack.setText("Exit");
+                    break;
+                case 6:
+                    feedBack.setText("Search Text");
+                    break;
+                default:
+                    feedBack.setText("Invalid choice");
+                    break;
+            }
 
         });
     }
