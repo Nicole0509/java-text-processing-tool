@@ -136,7 +136,20 @@ public class TheRealMainClass extends Application {
                 if(textProcessingSet.isEmpty()) {
                     guideLabel.setText("Nothing to Replace!");
                     layout.getChildren().addAll(guideLabel, showMenuButton);
+                } else {
+                    guideLabel.setText("Replace A Phrase");
+                    enterTextLabel = new Label("Enter Phrase To Replace");
+                    enterText.setPromptText("Enter phrase to replace here");
+
+                    Label inputChoiceLabel = new Label("Enter New Phrase");
+                    inputChoice.setPromptText("Enter the new phrase here");
+
+                    feedBack.setText("Note: ONLY individual phrases can be replaced!\n E.g.: If you want to replace \"you\", you in \"you are a person\" will be replaced. \nBut you in \"young\" will stay intact.");
+
+                    layout.getChildren().clear();
+                    layout.getChildren().addAll(guideLabel, enterTextLabel, enterText, inputChoiceLabel, inputChoice, replaceButton, feedBack);
                 }
+
                 break;
             case 4:
                 feedBack.setText("Delete Text");
