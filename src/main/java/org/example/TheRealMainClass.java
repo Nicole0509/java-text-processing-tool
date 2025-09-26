@@ -199,6 +199,24 @@ public class TheRealMainClass extends Application {
 
                     layout.getChildren().addAll(guideLabel, enterTextLabel, enterText, deleteButton, feedBack);
 
+                    deleteButton.setOnAction(e1 -> {
+                        layout.getChildren().clear();
+                        String toDelete = enterText.getText().trim();
+
+                        if (toDelete.isEmpty()) {
+                            feedBack.setText("Empty input not allowed!");
+                        } else if (!textProcessingSet.remove(toDelete)) {
+                            // remove() returns false if phrase not found
+                            feedBack.setText("Phrase not found: " + toDelete);
+                        } else {
+                            // update the table
+                            textPhrases.setAll(textProcessingSet);
+                            feedBack.setText("Deleted successfully: " + toDelete);
+                        }
+
+                        layout.getChildren().addAll(guideLabel, feedBack, showMenuButton);
+                        enterText.clear();
+                    });
                 }
 
                 break;
