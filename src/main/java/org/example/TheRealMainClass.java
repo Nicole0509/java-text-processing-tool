@@ -5,11 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -43,8 +41,8 @@ public class TheRealMainClass extends Application {
 
 
     // View declaration
-    private TableView<String> tableView = new TableView<>();
-    private final ObservableList<String[]> data = FXCollections.observableArrayList();
+    private final TableView<String> tableView = new TableView<>();
+    private final ObservableList<String> textPhrases = FXCollections.observableArrayList();
 
     public static void main(String[] args) {
         Application.launch(TheRealMainClass.class, args);
@@ -74,9 +72,26 @@ public class TheRealMainClass extends Application {
     }
 
     public void switchChoice(int choice) {
+        HBox actionButtons = new HBox(10,updateButton, deleteButton);
         switch (choice){
             case 1:
-                feedBack.setText("View A list of available Text");
+                layout.getChildren().clear();
+
+                if(textProcessingSet.isEmpty()){
+                    guideLabel.setText("Nothing to Display");
+                    layout.getChildren().addAll(guideLabel,showMenuButton);
+                } else {
+
+                    textPhrases.setAll(textProcessingSet); // refresh data
+                    layout.getChildren().addAll(tableView, showMenuButton);
+
+//                    TableColumn<String,Button> actionButtonColumns = new TableColumn<>("Action Buttons");
+                }
+
+                showMenuButton.setOnAction(e1 -> {
+                    layout.getChildren().clear();
+                    displayMenu();
+                });
 
                 break;
             case 2:
@@ -101,6 +116,8 @@ public class TheRealMainClass extends Application {
                     } else {
 
                         textProcessingSet.add(enterText.getText().trim());
+                        textPhrases.setAll(textProcessingSet);
+
                         guideLabel.setText("Text added successfully!");
                         feedBack.setText("You have " + textProcessingSet.size() + " phrases available in the set!");
                         layout.getChildren().addAll(guideLabel,feedBack,showMenuButton);
@@ -133,10 +150,17 @@ public class TheRealMainClass extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        tableView.setItems(textPhrases);
+
+        TableColumn<String, String> textPhrasesColumn = new TableColumn<>("Text Phrases");
+        textPhrasesColumn.setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue()));
+
+        tableView.getColumns().add(textPhrasesColumn);
+        tableView.setItems(textPhrases);
+
 
         stage.setTitle("TEXT PROCESSING TOOL");
-
-
 
         layout.setPadding(new Insets(10, 20, 10, 20));
 
