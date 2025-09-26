@@ -3,6 +3,7 @@ package org.example;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,7 +30,15 @@ public class TheRealMainClass extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle("TEXT PROCESSING TOOL");
 
-        final Scene scene = new Scene(inputChoice, 400, 400);
+        Label guideLabel = new Label("Choose an Option");
+
+        Label inputChoiceLabel = new Label("Input Choice");
+        inputChoice.setPromptText("Enter your choice here");
+
+        VBox layout = new VBox(10,guideLabel,inputChoiceLabel,inputChoice);
+        layout.setPadding(new Insets(10, 10, 10, 10));
+
+        final Scene scene = new Scene(layout, 400, 400);
         stage.setScene(scene);
         stage.show();
     }
