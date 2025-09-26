@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -20,7 +19,7 @@ public class TheRealMainClass extends Application {
 
     static int choice;
 
-    public static Set<String> textProcessingSet = new HashSet<String>();
+    public static Set<String> textProcessingSet = new HashSet<>();
 
     // Layout declaration
     VBox layout = new VBox(10);
@@ -32,6 +31,8 @@ public class TheRealMainClass extends Application {
     // Labels declaration
     public Label feedBack = new Label();
     public Label guideLabel = new Label("Choose an Option");
+    Label enterTextLabel = new Label();
+    Label inputChoiceLabel =  new Label();
 
     // Button declaration
     public Button submitButton = new Button("Submit");
@@ -52,7 +53,7 @@ public class TheRealMainClass extends Application {
     public void displayMenu(){
         guideLabel.setText("Choose an Option");
 
-        Label inputChoiceLabel = new Label("Input Choice");
+        inputChoiceLabel = new Label("Input Choice");
         inputChoice.setPromptText("Enter your choice here");
 
         feedBack.setText("");
@@ -95,7 +96,7 @@ public class TheRealMainClass extends Application {
             case 2:
                 guideLabel.setText("Add A New Phrase");
 
-                Label enterTextLabel = new Label("Enter Phrase");
+                enterTextLabel = new Label("Enter Phrase");
                 enterText.setPromptText("Enter phrase to add here");
 
                 feedBack.setText("");
@@ -131,7 +132,11 @@ public class TheRealMainClass extends Application {
 
                 break;
             case 3:
-                feedBack.setText("Replace Text");
+                layout.getChildren().clear();
+                if(textProcessingSet.isEmpty()) {
+                    guideLabel.setText("Nothing to Replace!");
+                    layout.getChildren().addAll(guideLabel, showMenuButton);
+                }
                 break;
             case 4:
                 feedBack.setText("Delete Text");
