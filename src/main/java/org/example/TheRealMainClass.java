@@ -151,10 +151,10 @@ public class TheRealMainClass extends Application {
 
                     replaceButton.setOnAction(e1 -> {
                         layout.getChildren().clear();
-                        if (enterText.getText().trim().isEmpty()) {
+                        if (enterText.getText().trim().isEmpty() || inputChoice.getText().trim().isEmpty()) {
 
-                            feedBack.setText("Empty search phrases are not allowed!");
-                            layout.getChildren().addAll(guideLabel, enterTextLabel, enterText, searchButton, feedBack);
+                            feedBack.setText("Empty inputs are not allowed!");
+                            layout.getChildren().addAll(guideLabel, enterTextLabel, enterText, inputChoiceLabel, inputChoice, replaceButton, feedBack);
                             enterText.clear();
                             inputChoice.clear();
 
