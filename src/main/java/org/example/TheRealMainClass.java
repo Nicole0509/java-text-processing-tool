@@ -57,9 +57,14 @@ public class TheRealMainClass extends Application {
         inputChoiceLabel = new Label("Input Choice");
         inputChoice.setPromptText("Enter your choice here");
 
-        feedBack.setText("");
+        feedBack.setText("Menu\n\n" +
+                "1. View All Text\n" +
+                "2. Add Text\n" +
+                "3. Replace Text\n" +
+                "4. Delete Text\n" +
+                "5. Search Text\n");
 
-        layout.getChildren().addAll(guideLabel,inputChoiceLabel,inputChoice,submitButton,feedBack);
+        layout.getChildren().addAll(feedBack,guideLabel,inputChoiceLabel,inputChoice,submitButton);
 
         submitButton.setOnAction(e -> {
             try{
@@ -201,25 +206,32 @@ public class TheRealMainClass extends Application {
 
                     deleteButton.setOnAction(e1 -> {
                         layout.getChildren().clear();
-                        String toDelete = enterText.getText().trim();
 
-                        if (toDelete.isEmpty()) {
+                        if (enterText.getText().trim().isEmpty()) {
                             feedBack.setText("Empty input not allowed!");
-                        } else if (!textProcessingSet.remove(toDelete)) {
-                            // remove() returns false if phrase not found
-                            feedBack.setText("Phrase not found: " + toDelete);
+                            layout.getChildren().addAll(guideLabel, enterTextLabel, enterText, deleteButton, feedBack);
+
                         } else {
-                            // update the table
-                            textPhrases.setAll(textProcessingSet);
-                            feedBack.setText("Deleted successfully: " + toDelete);
+                            String toDelete = enterText.getText().trim();
+
+                            if (!textProcessingSet.remove(toDelete)) {
+
+                                feedBack.setText("Phrase not found: " + toDelete);
+                            } else {
+
+                                textPhrases.setAll(textProcessingSet);
+                                feedBack.setText("Deleted successfully: " + toDelete);
+                            }
+
+                            layout.getChildren().addAll(guideLabel, feedBack, showMenuButton);
+                            enterText.clear();
+
+                            showMenuButton.setOnAction(e-> {
+                                layout.getChildren().clear();
+                                displayMenu();
+                            });
                         }
 
-                        layout.getChildren().addAll(guideLabel, feedBack, showMenuButton);
-                        enterText.clear();
-                        showMenuButton.setOnAction(e-> {
-                            layout.getChildren().clear();
-                            displayMenu();
-                        });
                     });
                 }
 
@@ -305,7 +317,6 @@ public class TheRealMainClass extends Application {
         final Scene scene = new Scene(layout, 400, 400);
         stage.setScene(scene);
         stage.show();
-
 
     }
 }
