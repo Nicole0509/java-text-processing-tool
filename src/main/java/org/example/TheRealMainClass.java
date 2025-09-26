@@ -16,8 +16,13 @@ import javafx.stage.Stage;
 
 public class TheRealMainClass extends Application {
 
+    static int choice;
+
     private final TextField  inputChoice  = new TextField();
     private TextField  enterText = new TextField();
+
+    public Label feedback = new Label();
+    public Label guideLabel = new Label("Choose an Option");
 
     private TableView<String> tableView = new TableView<>();
     private final ObservableList<String[]> data = FXCollections.observableArrayList();
@@ -26,20 +31,39 @@ public class TheRealMainClass extends Application {
         Application.launch(TheRealMainClass.class, args);
     }
 
+    public void switchChoice(int choice) {
+        feedback.setText("switchoice says hi");
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("TEXT PROCESSING TOOL");
+        Button submitButton = new Button("Submit");
+        Button createButton = new Button("Create");
+        Button updateButton = new Button("Update");
+        Button deleteButton = new Button("Delete");
 
-        Label guideLabel = new Label("Choose an Option");
+        stage.setTitle("TEXT PROCESSING TOOL");
 
         Label inputChoiceLabel = new Label("Input Choice");
         inputChoice.setPromptText("Enter your choice here");
 
-        VBox layout = new VBox(10,guideLabel,inputChoiceLabel,inputChoice);
+        VBox layout = new VBox(10,guideLabel,inputChoiceLabel,inputChoice,submitButton,feedback);
         layout.setPadding(new Insets(10, 10, 10, 10));
 
         final Scene scene = new Scene(layout, 400, 400);
         stage.setScene(scene);
         stage.show();
+
+        submitButton.setOnAction(e -> {
+            try{
+                choice = Integer.parseInt(inputChoice.getText());
+                feedback.setText("check");
+            } catch(Exception ex){
+                choice = -1;
+                feedback.setText("Invalid choice");
+            }
+
+            switchChoice(choice);
+        });
     }
 }
