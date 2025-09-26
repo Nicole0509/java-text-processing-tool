@@ -148,6 +148,18 @@ public class TheRealMainClass extends Application {
 
                     layout.getChildren().clear();
                     layout.getChildren().addAll(guideLabel, enterTextLabel, enterText, inputChoiceLabel, inputChoice, replaceButton, feedBack);
+
+                    replaceButton.setOnAction(e1 -> {
+                        layout.getChildren().clear();
+                        if (enterText.getText().trim().isEmpty()) {
+
+                            feedBack.setText("Empty search phrases are not allowed!");
+                            layout.getChildren().addAll(guideLabel, enterTextLabel, enterText, searchButton, feedBack);
+                            enterText.clear();
+                            inputChoice.clear();
+
+                        }
+                    });
                 }
 
                 break;
