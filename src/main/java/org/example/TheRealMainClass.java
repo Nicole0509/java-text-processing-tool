@@ -158,7 +158,25 @@ public class TheRealMainClass extends Application {
                             enterText.clear();
                             inputChoice.clear();
 
+                        } else {
+                            String oldText = enterText.getText().trim();
+                            String newText = inputChoice.getText().trim();
+
+                            Pattern pattern = Pattern.compile("\\b" + oldText + "\\b", Pattern.CASE_INSENSITIVE);
+
+                            textProcessingSet = textProcessingSet.stream()
+                                    .map(phrase -> pattern.matcher(phrase).replaceAll(newText))
+                                    .collect(Collectors.toSet());
+
+                            textPhrases.setAll(textProcessingSet);
+
+                            feedBack.setText("Text replaced successfully!");
+                            layout.getChildren().addAll(guideLabel, feedBack, showMenuButton);
+                            enterText.clear();
+                            inputChoice.clear();
                         }
+
+
                     });
                 }
 
