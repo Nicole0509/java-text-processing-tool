@@ -180,11 +180,16 @@ public class TheRealMainClass extends Application {
                             layout.getChildren().clear();
                             displayMenu();
                         });
-                });
+                    });
+                }
 
                 break;
             case 4:
-                feedBack.setText("Delete Text");
+                layout.getChildren().clear();
+                if (textProcessingSet.isEmpty()) {
+                    guideLabel.setText("Nothing to Delete!");
+                    layout.getChildren().addAll(guideLabel, showMenuButton);
+                }
                 break;
             case 5:
                 layout.getChildren().clear();
