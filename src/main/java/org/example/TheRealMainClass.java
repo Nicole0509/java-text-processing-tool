@@ -57,7 +57,7 @@ public class TheRealMainClass extends Application {
         inputChoiceLabel = new Label("Input Choice");
         inputChoice.setPromptText("Enter your choice here");
 
-        feedBack.setText("Menu\n\n" +
+        feedBack.setText("Menu Options\n\n" +
                 "1. View All Text\n" +
                 "2. Add Text\n" +
                 "3. Replace Text\n" +
@@ -210,6 +210,7 @@ public class TheRealMainClass extends Application {
                         if (enterText.getText().trim().isEmpty()) {
                             feedBack.setText("Empty input not allowed!");
                             layout.getChildren().addAll(guideLabel, enterTextLabel, enterText, deleteButton, feedBack);
+                            enterText.clear();
 
                         } else {
                             String toDelete = enterText.getText().trim();
@@ -269,6 +270,8 @@ public class TheRealMainClass extends Application {
                                     textProcessingSet.stream()
                                             .filter(phrase -> pattern.matcher(phrase).find())
                                             .forEach(phrase -> results.append("Match found: ").append(phrase).append("\n"));
+
+                                    guideLabel.setText("Word searched: " + search);
 
                                     if(results.isEmpty()){
                                         feedBack.setText("No matches found!");
