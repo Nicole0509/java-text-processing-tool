@@ -18,12 +18,24 @@ public class TheRealMainClass extends Application {
 
     static int choice;
 
+    // Layout declaration
+    VBox layout = new VBox(10);
+
+    // Text Field declaration
     private final TextField  inputChoice  = new TextField();
     private TextField  enterText = new TextField();
 
+    // Labels declaration
     public Label feedBack = new Label();
     public Label guideLabel = new Label("Choose an Option");
 
+    // Button declaration
+    public Button submitButton = new Button("Submit");
+    public Button createButton = new Button("Add Text");
+    public Button updateButton = new Button("Update");
+    public Button deleteButton = new Button("Delete");
+
+    // View declaration
     private TableView<String> tableView = new TableView<>();
     private final ObservableList<String[]> data = FXCollections.observableArrayList();
 
@@ -38,7 +50,15 @@ public class TheRealMainClass extends Application {
 
                 break;
             case 2:
-                feedBack.setText("Add Text");
+                guideLabel.setText("Add A New Phrase");
+
+                Label enterTextLabel = new Label("Enter Phrase");
+                enterText.setPromptText("Enter phrase to add here");
+
+                feedBack.setText("");
+
+                layout.getChildren().clear();
+                layout.getChildren().addAll(guideLabel, enterTextLabel, enterText,createButton, feedBack);
                 break;
             case 3:
                 feedBack.setText("Replace Text");
@@ -58,18 +78,15 @@ public class TheRealMainClass extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Button submitButton = new Button("Submit");
-        Button createButton = new Button("Create");
-        Button updateButton = new Button("Update");
-        Button deleteButton = new Button("Delete");
 
         stage.setTitle("TEXT PROCESSING TOOL");
 
         Label inputChoiceLabel = new Label("Input Choice");
         inputChoice.setPromptText("Enter your choice here");
 
-        VBox layout = new VBox(10,guideLabel,inputChoiceLabel,inputChoice,submitButton,feedBack);
-        layout.setPadding(new Insets(10, 10, 10, 10));
+        layout.getChildren().addAll(guideLabel,inputChoiceLabel,inputChoice,submitButton,feedBack);
+
+        layout.setPadding(new Insets(10, 20, 10, 20));
 
         final Scene scene = new Scene(layout, 400, 400);
         stage.setScene(scene);
