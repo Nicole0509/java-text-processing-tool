@@ -159,7 +159,28 @@ public class TheRealMainClass extends Application {
                                     layout.getChildren().addAll(guideLabel, enterTextLabel, enterText,searchButton, feedBack);
                                     enterText.clear();
 
+                                } else {
+                                    String search = enterText.getText().trim();
+
+                                    Pattern pattern = Pattern.compile(search, Pattern.CASE_INSENSITIVE);
+
+                                    StringBuilder results = new StringBuilder();
+
+                                    textProcessingSet.stream()
+                                            .filter(phrase -> pattern.matcher(phrase).find())
+                                            .forEach(phrase -> results.append("Match found: ").append(phrase).append("\n"));
+
+                                    if(results.isEmpty()){
+                                        feedBack.setText("No matches found!");
+                                    } else {
+                                        feedBack.setText(results.toString());
+                                    }
+
+                                    layout.getChildren().addAll(guideLabel, feedBack, showMenuButton);
+                                    enterText.clear();
                                 }
+
+
                     });
                 }
 
