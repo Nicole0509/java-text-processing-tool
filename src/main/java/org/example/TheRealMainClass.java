@@ -21,7 +21,7 @@ public class TheRealMainClass extends Application {
     private final TextField  inputChoice  = new TextField();
     private TextField  enterText = new TextField();
 
-    public Label feedback = new Label();
+    public Label feedBack = new Label();
     public Label guideLabel = new Label("Choose an Option");
 
     private TableView<String> tableView = new TableView<>();
@@ -32,7 +32,28 @@ public class TheRealMainClass extends Application {
     }
 
     public void switchChoice(int choice) {
-        feedback.setText("switchoice says hi");
+        switch (choice){
+            case 1:
+                feedBack.setText("View A list of available Text");
+
+                break;
+            case 2:
+                feedBack.setText("Add Text");
+                break;
+            case 3:
+                feedBack.setText("Replace Text");
+                break;
+            case 4:
+                feedBack.setText("Delete Text");
+                break;
+            case 5:
+                feedBack.setText("Search Text");
+                break;
+            default:
+                feedBack.setText("Invalid choice");
+                break;
+        }
+
     }
 
     @Override
@@ -47,7 +68,7 @@ public class TheRealMainClass extends Application {
         Label inputChoiceLabel = new Label("Input Choice");
         inputChoice.setPromptText("Enter your choice here");
 
-        VBox layout = new VBox(10,guideLabel,inputChoiceLabel,inputChoice,submitButton,feedback);
+        VBox layout = new VBox(10,guideLabel,inputChoiceLabel,inputChoice,submitButton,feedBack);
         layout.setPadding(new Insets(10, 10, 10, 10));
 
         final Scene scene = new Scene(layout, 400, 400);
@@ -57,10 +78,10 @@ public class TheRealMainClass extends Application {
         submitButton.setOnAction(e -> {
             try{
                 choice = Integer.parseInt(inputChoice.getText());
-                feedback.setText("check");
+                feedBack.setText("check");
             } catch(Exception ex){
                 choice = -1;
-                feedback.setText("Invalid choice");
+                feedBack.setText("Invalid choice");
             }
 
             switchChoice(choice);
