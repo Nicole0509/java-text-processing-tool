@@ -216,6 +216,10 @@ public class TheRealMainClass extends Application {
 
                         layout.getChildren().addAll(guideLabel, feedBack, showMenuButton);
                         enterText.clear();
+                        showMenuButton.setOnAction(e-> {
+                            layout.getChildren().clear();
+                            displayMenu();
+                        });
                     });
                 }
 
