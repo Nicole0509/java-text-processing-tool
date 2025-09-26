@@ -37,6 +37,7 @@ public class TheRealMainClass extends Application {
     // Button declaration
     public Button submitButton = new Button("Submit");
     public Button addButton = new Button("Add Text");
+    public Button deleteButton = new Button("Delete Text");
     public Button searchButton = new Button("Search");
     public Button replaceButton = new Button("Replace Text");
     public Button showMenuButton = new Button("Show Menu");
@@ -189,7 +190,17 @@ public class TheRealMainClass extends Application {
                 if (textProcessingSet.isEmpty()) {
                     guideLabel.setText("Nothing to Delete!");
                     layout.getChildren().addAll(guideLabel, showMenuButton);
+                } else {
+                    guideLabel.setText("Delete A Phrase");
+                    enterTextLabel = new Label("Enter Phrase To Delete");
+                    enterText.setPromptText("Enter phrase to delete here");
+
+                    feedBack.setText("");
+
+                    layout.getChildren().addAll(guideLabel, enterTextLabel, enterText, deleteButton, feedBack);
+
                 }
+
                 break;
             case 5:
                 layout.getChildren().clear();
