@@ -176,9 +176,11 @@ public class TheRealMainClass extends Application {
                             inputChoice.clear();
                         }
 
-
-                    });
-                }
+                        showMenuButton.setOnAction(e -> {
+                            layout.getChildren().clear();
+                            displayMenu();
+                        });
+                });
 
                 break;
             case 4:
