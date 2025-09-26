@@ -6,13 +6,14 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 
 public class TheRealMainClass extends Application {
@@ -35,8 +36,8 @@ public class TheRealMainClass extends Application {
     // Button declaration
     public Button submitButton = new Button("Submit");
     public Button addButton = new Button("Add Text");
-    public Button updateButton = new Button("Update");
-    public Button deleteButton = new Button("Delete");
+    public Button searchButton = new Button("Search");
+    public Button replaceButton = new Button("Replace Text");
     public Button showMenuButton = new Button("Show Menu");
 
 
@@ -72,7 +73,6 @@ public class TheRealMainClass extends Application {
     }
 
     public void switchChoice(int choice) {
-        HBox actionButtons = new HBox(10,updateButton, deleteButton);
         switch (choice){
             case 1:
                 layout.getChildren().clear();
@@ -82,10 +82,8 @@ public class TheRealMainClass extends Application {
                     layout.getChildren().addAll(guideLabel,showMenuButton);
                 } else {
 
-                    textPhrases.setAll(textProcessingSet); // refresh data
+                    textPhrases.setAll(textProcessingSet);
                     layout.getChildren().addAll(tableView, showMenuButton);
-
-//                    TableColumn<String,Button> actionButtonColumns = new TableColumn<>("Action Buttons");
                 }
 
                 showMenuButton.setOnAction(e1 -> {
@@ -139,7 +137,27 @@ public class TheRealMainClass extends Application {
                 feedBack.setText("Delete Text");
                 break;
             case 5:
-                feedBack.setText("Search Text");
+                layout.getChildren().clear();
+                if(textProcessingSet.isEmpty()){
+                    guideLabel.setText("Nothing to Search!");
+                    layout.getChildren().addAll(guideLabel,showMenuButton);
+                } else {
+                    guideLabel.setText("Search Here");
+                    enterTextLabel = new Label("Enter Phrase To Search");
+                    enterText.setPromptText("Enter phrase to search here");
+
+                    feedBack.setText("");
+
+                    layout.getChildren().clear();
+                    layout.getChildren().addAll(guideLabel, enterTextLabel, enterText,searchButton, feedBack);
+
+
+                }
+
+                showMenuButton.setOnAction(e1 -> {
+                    layout.getChildren().clear();
+                    displayMenu();
+                });
                 break;
             default:
                 feedBack.setText("Invalid choice");
@@ -153,12 +171,12 @@ public class TheRealMainClass extends Application {
         tableView.setItems(textPhrases);
 
         TableColumn<String, String> textPhrasesColumn = new TableColumn<>("Text Phrases");
+
         textPhrasesColumn.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue()));
 
         tableView.getColumns().add(textPhrasesColumn);
         tableView.setItems(textPhrases);
-
 
         stage.setTitle("TEXT PROCESSING TOOL");
 
