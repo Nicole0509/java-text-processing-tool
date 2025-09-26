@@ -13,17 +13,22 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class TheRealMainClass extends Application {
 
     static int choice;
+
+    public static Set<String> textProcessingSet = new HashSet<String>();
 
     // Layout declaration
     VBox layout = new VBox(10);
 
     // Text Field declaration
     private final TextField  inputChoice  = new TextField();
-    private TextField  enterText = new TextField();
+    private final TextField  enterText = new TextField();
 
     // Labels declaration
     public Label feedBack = new Label();
@@ -59,6 +64,24 @@ public class TheRealMainClass extends Application {
 
                 layout.getChildren().clear();
                 layout.getChildren().addAll(guideLabel, enterTextLabel, enterText,createButton, feedBack);
+
+                createButton.setOnAction(e -> {
+                    layout.getChildren().clear();
+                    if (enterText.getText().isEmpty()) {
+
+                        feedBack.setText("Empty text phrases are not allowed!");
+                        layout.getChildren().addAll(guideLabel, enterTextLabel, enterText,createButton, feedBack);
+
+                    } else {
+
+                        textProcessingSet.add(enterText.getText());
+                        guideLabel.setText("Text added successfully!");
+                        feedBack.setText("You have " + textProcessingSet.size() + " texts available in the set!");
+                        layout.getChildren().addAll(guideLabel,feedBack);
+                    }
+
+                });
+
                 break;
             case 3:
                 feedBack.setText("Replace Text");
